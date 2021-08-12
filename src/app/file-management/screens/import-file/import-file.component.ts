@@ -59,12 +59,12 @@ public setFileData(fileContent:string):void{
     fileContentList.forEach((fileData, index)=>{
         const fileDataList = fileData.split(',');
         if(index===0){
-            fileDataList.forEach((header,index)=>{
-              columnDefs.push({headerName:header,field:`${COLUMN_TEXT}${index+1}`, filter:true});
+            fileDataList.forEach((header,headerIndex)=>{
+              columnDefs.push({headerName:header,field:`${COLUMN_TEXT}${headerIndex+1}`, filter:true});
            });
         } else {
-            fileDataList.forEach((columnData,index)=>{
-               oColumnData = {...oColumnData, ...{[`${COLUMN_TEXT}${index+1}`]:columnData}};
+            fileDataList.forEach((columnData,columnIndex)=>{
+               oColumnData = {...oColumnData, ...{[`${COLUMN_TEXT}${columnIndex+1}`]:columnData}};
             });
             rowData.push(oColumnData);
         }
