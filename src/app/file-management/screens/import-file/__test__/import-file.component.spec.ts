@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ImportFileComponent } from '../import-file.component';
-import {IssuesCsv} from '../__test__/import-file.component.mock';
+import {IssuesCsv, TextFileContent} from '../__test__/import-file.component.mock';
 
 
 describe('ImportFileComponent', () => {
@@ -25,16 +25,26 @@ describe('ImportFileComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should import the data', async() => {
+  it('check if the file is csv format or not', () => {
+    const oCsvFile = generateCsvFile();
+    expect(component.isValidFile(oCsvFile)).toBeTrue();
+    const oTxtFile = generateTextFile();
+    expect(component.isValidFile(oTxtFile)).toBeFalse();
+  });
+
+  it('should import the data', async()=>{
     const oFile = generateCsvFile();
     const fileData = await component.getFileData(oFile);
     component.setFileData(fileData);
     expect(component.rowData.length).toBeGreaterThan(0);
   });
 
-
   const generateCsvFile = ()=>{
     return new File([IssuesCsv], "issues.csv", { type: 'text/csv' });
+  }
+
+  const generateTextFile = ()=>{
+    return new File([TextFileContent], "test.txt", { type: 'text/plain' });
   }
 
 });

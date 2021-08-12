@@ -19,9 +19,9 @@ public rowData:RowData[] = [];
 public isInvalidFileFormat = false;
 public isInvalidFileSize = false;
 
-public async onSelectFile(fileObj?:File){
-    const oFile =  fileObj ? fileObj : this._fileType.nativeElement.files[0];
-    if(oFile && this._isValidFile(oFile)){
+public async onSelectFile(){
+    const oFile =  this._fileType.nativeElement.files[0];
+    if(oFile && this.isValidFile(oFile)){
         const fileContent = await this.getFileData(oFile);
         this.setFileData(fileContent);
     } else {
@@ -29,14 +29,14 @@ public async onSelectFile(fileObj?:File){
     }    
 }
 
-private _isValidFile(oFile:File):boolean{
+public isValidFile(oFile:File):boolean{
     const{name:fileName,size:fileSize} = oFile; 
     this.isInvalidFileFormat = false;
     this.isInvalidFileSize = false;
      if(!(fileName.endsWith(FILE_FORMAT))){
          this.isInvalidFileFormat = true;
      }
-     if(Math.floor(fileSize / FILE_SIZE) > FILE_SIZE_DIVIDER){
+     if(Math.floor(fileSize / FILE_SIZE) > FILE_SIZE_DIVIDER){ 
          this.isInvalidFileSize = true;
      }
      return !(this.isInvalidFileFormat || this.isInvalidFileSize);
