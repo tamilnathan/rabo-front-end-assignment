@@ -1,0 +1,19 @@
+
+<h1>Import CSV file</h1>
+
+<ul class="error" *ngIf="isInvalidFileFormat || isInvalidFileSize">
+    <li *ngIf="isInvalidFileSize">Please select file which is less than 20MB in size.</li>
+    <li *ngIf="isInvalidFileFormat">Selected file type is not supported.</li>
+</ul>
+
+<div class="display-flex">
+    <label for="chooseFile" class="medium-right-space">Please choose the csv file</label>
+    <input id="chooseFile"  #file type="file" (change)="onSelectFile()">
+</div>
+
+<ag-grid-angular *ngIf="rowData.length"
+    style="width: 100%; height: 500px;" 
+    class="medium-top-space ag-theme-balham"
+    [columnDefs]="columnDefs" 
+    [rowData]="rowData">
+</ag-grid-angular>
